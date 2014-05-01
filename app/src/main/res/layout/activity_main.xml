@@ -35,8 +35,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/connectionEnabled"
         android:id="@+id/connectionEnabledText"
-        android:layout_below="@+id/editText"
-        android:layout_marginTop="33dp" />
+        android:layout_below="@+id/spinner"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,10 +45,10 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText2"
+        android:text="3"
         android:layout_below="@+id/connectionEnabledText"
-        android:layout_alignRight="@+id/connectionEnabledText"
-        android:layout_alignEnd="@+id/connectionEnabledText"
-        android:text="3" />
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
 
     <Button
         android:onClick="saveAndEnable"
@@ -56,11 +57,10 @@
         android:layout_height="wrap_content"
         android:text="@string/enableText"
         android:id="@+id/button"
-        android:layout_marginTop="84dp"
-        android:layout_below="@+id/editText2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="34dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/editText2"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="52dp" />
 
     <Button
         android:onClick="verifyAlarm"
@@ -73,5 +73,23 @@
         android:layout_alignRight="@+id/editText2"
         android:layout_alignEnd="@+id/editText2"
         android:layout_marginRight="55dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/timings"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:entries="@array/duration" />
 
 </RelativeLayout>
