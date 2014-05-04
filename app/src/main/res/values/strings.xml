@@ -7,6 +7,7 @@
     <string name="connectionEnabled">Choose for how many minutes you want your connection to be enabled</string>
     <string name="enableText">Enable</string>
     <string name="buttonDisable">Disable</string>
+    <string name="informationSaved">Information Saved</string>
 
     <string-array name="timings">
         <item>15</item>
@@ -17,7 +18,6 @@
     <string-array name="duration">
         <item>5</item>
         <item>10</item>
-        <item>15</item>
     </string-array>
 
 </resources>

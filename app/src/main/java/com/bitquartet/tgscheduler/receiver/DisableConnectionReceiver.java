@@ -4,18 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
-public class AlarmReceiver extends BroadcastReceiver {
+import com.bitquartet.tgscheduler.utils.ConnectionManager;
 
-    private static final String TAG = "AlarmReceiver";
+public class DisableConnectionReceiver extends BroadcastReceiver {
 
-    public AlarmReceiver() {
+    private static final String TAG = "DisableConnectionReceiver";
+
+    public DisableConnectionReceiver() {
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("I'm called", TAG);
-        Toast.makeText(context, "I'm called", Toast.LENGTH_SHORT).show();
+        ConnectionManager.setConnection(context, false);
     }
 }

@@ -17,7 +17,24 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.bitquartet.tgscheduler.receiver.AlarmReceiver"></receiver>
+        <receiver
+            android:name="com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.bitquartet.tgscheduler.ENABLE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.bitquartet.tgscheduler.receiver.DisableConnectionReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.bitquartet.tgscheduler.DISABLE" />
+            </intent-filter>
+        </receiver>
     </application>
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
 </manifest>

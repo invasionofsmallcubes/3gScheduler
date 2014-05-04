@@ -5,29 +5,30 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bitquartet.tgscheduler.receiver.AlarmReceiver;
+import com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "AlarmReceiver";
     private static int PENDING_ID = 1034434;
+    private static long TWO_MINUTES = 120000L;
     public static final String PREFS_NAME = "AppDataStorage";
     public static final String REPEAT = "REPEAT";
     public static final String MINUTES = "MINUTES";
     private SharedPreferences mSettings;
-    private EditText mEditText;
-    private EditText mEditText2;
+    private Spinner timings;
+    private Spinner duration;
     private AlarmManager alarmMgr;
 
     @Override
@@ -35,52 +36,52 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSettings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        mEditText = (EditText) findViewById(R.id.editText);
-        mEditText2 = (EditText) findViewById(R.id.editText2);
-        mEditText.setText(Integer.toString(mSettings.getInt(REPEAT, 4)), TextView.BufferType.EDITABLE);
-        mEditText2.setText(Integer.toString(mSettings.getInt(MINUTES, 5)), TextView.BufferType.EDITABLE);
+        timings = (Spinner) findViewById(R.id.timingsSpinner);
+        duration = (Spinner) findViewById(R.id.durationSpinner);
+        timings.setSelection(mSettings.getInt(REPEAT, 0));
+        duration.setSelection(mSettings.getInt(MINUTES, 0));
         alarmMgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
     }
 
     public void saveAndEnable(View view) {
-        String message = "Information saved";
 
-        String repeat = mEditText.getText().toString();
-        String minutes = mEditText2.getText().toString();
+        int repeat = timings.getSelectedItemPosition();
+        int minutes = duration.getSelectedItemPosition();
 
-        if (repeat.length() > 0 && minutes.length() > 0) {
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putInt(REPEAT, Integer.valueOf(repeat));
+        editor.putInt(MINUTES, Integer.valueOf(minutes));
+        editor.commit();
 
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putInt(REPEAT, Integer.valueOf(repeat));
-            editor.putInt(MINUTES, Integer.valueOf(minutes));
-            editor.commit();
+        Intent intent = new Intent(getApplicationContext(), EnableConnectionReceiver.class);
+        intent.setAction("com.bitquartet.tgscheduler.ENABLE");
+        intent.putExtra("duration", minutes);
 
+        Log.d("Interval is: " + (repeat+1)*AlarmManager.INTERVAL_FIFTEEN_MINUTES, TAG);
 
-            Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-            intent.putExtra("Test", repeat);
-            alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis() + 60*1000L,
-                    AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmReceiverIntent(PendingIntent.FLAG_UPDATE_CURRENT));
-        } else
-            message = "You cannot leave empty fields";
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + TWO_MINUTES,
+                (repeat+1)*AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmReceiverIntent(intent, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.informationSaved), Toast.LENGTH_SHORT).show();
     }
 
     public void verifyAlarm(View view) {
-        boolean alarmUp = (getAlarmReceiverIntent(PendingIntent.FLAG_NO_CREATE) != null);
+        Intent intent = new Intent(getApplicationContext(), EnableConnectionReceiver.class);
+        intent.setAction("com.bitquartet.tgscheduler.ENABLE");
+        boolean alarmUp = (getAlarmReceiverIntent(intent, PendingIntent.FLAG_NO_CREATE) != null);
 
         if (alarmUp) {
             Log.d(TAG, "Alarm is active...");
-            PendingIntent pendingIntent = getAlarmReceiverIntent(PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = getAlarmReceiverIntent(intent, PendingIntent.FLAG_UPDATE_CURRENT);
             pendingIntent.cancel();
             alarmMgr.cancel(pendingIntent);
-        }
-        else {
+        } else {
             Log.d(TAG, "Alarm is not active");
         }
     }
 
-    private PendingIntent getAlarmReceiverIntent(int flag) {
-        return PendingIntent.getBroadcast(getApplicationContext(), PENDING_ID, new Intent(getApplicationContext(), AlarmReceiver.class), flag);
+    private PendingIntent getAlarmReceiverIntent(Intent intent, int flag) {
+        return PendingIntent.getBroadcast(getApplicationContext(), PENDING_ID, intent, flag);
     }
 
     @Override

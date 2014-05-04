@@ -18,37 +18,15 @@
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:text="4" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/connectionEnabled"
         android:id="@+id/connectionEnabledText"
-        android:layout_below="@+id/spinner"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:text="3"
-        android:layout_below="@+id/connectionEnabledText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_below="@+id/timingsSpinner"
+        android:layout_alignRight="@+id/durationSpinner"
+        android:layout_alignEnd="@+id/durationSpinner" />
 
     <Button
         android:onClick="saveAndEnable"
@@ -58,7 +36,7 @@
         android:text="@string/enableText"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/editText2"
+        android:layout_toLeftOf="@+id/durationSpinner"
         android:layout_marginRight="33dp"
         android:layout_marginBottom="52dp" />
 
@@ -66,19 +44,19 @@
         android:onClick="verifyAlarm"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/buttonDisable"
         android:id="@+id/button2"
         android:layout_alignTop="@+id/button"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
-        android:layout_marginRight="55dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/button" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_below="@+id/editText"
+        android:id="@+id/timingsSpinner"
+        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:entries="@array/timings"/>
@@ -86,8 +64,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_below="@+id/editText2"
+        android:id="@+id/durationSpinner"
+        android:layout_below="@+id/connectionEnabledText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:entries="@array/duration" />
