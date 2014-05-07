@@ -30,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
     private Spinner timings;
     private Spinner duration;
     private AlarmManager alarmMgr;
+    private Context mContext;
+    private NSApplication mApplication = (NSApplication) getApplication();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,8 @@ public class MainActivity extends ActionBarActivity {
         duration = (Spinner) findViewById(R.id.durationSpinner);
         timings.setSelection(mSettings.getInt(REPEAT, 0));
         duration.setSelection(mSettings.getInt(MINUTES, 0));
-        alarmMgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        mContext = mApplication.getContext();
+        alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
     }
 
     public void saveAndEnable(View view) {
@@ -62,11 +65,11 @@ public class MainActivity extends ActionBarActivity {
         alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + TWO_MINUTES,
                 (repeat+1)*AlarmManager.INTERVAL_FIFTEEN_MINUTES, getAlarmReceiverIntent(intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        Toast.makeText(getApplicationContext(), getResources().getString(R.string.informationSaved), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, getResources().getString(R.string.informationSaved), Toast.LENGTH_SHORT).show();
     }
 
     public void verifyAlarm(View view) {
-        Intent intent = new Intent(getApplicationContext(), EnableConnectionReceiver.class);
+        Intent intent = new Intent(mContext, EnableConnectionReceiver.class);
         intent.setAction("com.bitquartet.tgscheduler.ENABLE");
         boolean alarmUp = (getAlarmReceiverIntent(intent, PendingIntent.FLAG_NO_CREATE) != null);
 
@@ -81,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private PendingIntent getAlarmReceiverIntent(Intent intent, int flag) {
-        return PendingIntent.getBroadcast(getApplicationContext(), PENDING_ID, intent, flag);
+        return PendingIntent.getBroadcast(mContext, PENDING_ID, intent, flag);
     }
 
     @Override
