@@ -102,6 +102,7 @@
     <orderEntry type="library" exported="" scope="TEST" name="asm-analysis-5.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-profile-2.2.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="mockito-all-1.9.5" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-model-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="fest-util-1.2.5" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="ant-launcher-1.8.0" level="project" />

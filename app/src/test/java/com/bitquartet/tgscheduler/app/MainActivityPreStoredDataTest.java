@@ -3,20 +3,19 @@ package com.bitquartet.tgscheduler.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import com.robolectric.runner.RobolectricGradleTestRunner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @Config(emulateSdk = 18)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
 public class MainActivityPreStoredDataTest {
 
     @Test

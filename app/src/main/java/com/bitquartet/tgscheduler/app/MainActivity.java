@@ -16,13 +16,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver;
+import com.bitquartet.tgscheduler.utils.ConnectionManager;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "AlarmReceiver";
-    private static int PENDING_ID = 1034434;
-    private static long TWO_MINUTES = 120000L;
+    public static int PENDING_ID = 1034434;
+    public static long TWO_MINUTES = 120000L;
     public static final String PREFS_NAME = "AppDataStorage";
     public static final String REPEAT = "REPEAT";
     public static final String MINUTES = "MINUTES";
@@ -31,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
     private Spinner duration;
     private AlarmManager alarmMgr;
     private Context mContext;
-    private NSApplication mApplication = (NSApplication) getApplication();
+    private NSApplication mApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,9 @@ public class MainActivity extends ActionBarActivity {
         duration = (Spinner) findViewById(R.id.durationSpinner);
         timings.setSelection(mSettings.getInt(REPEAT, 0));
         duration.setSelection(mSettings.getInt(MINUTES, 0));
+        mApplication = (NSApplication) getApplication();
         mContext = mApplication.getContext();
-        alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr = (AlarmManager) mApplication.getAlarmManager();
     }
 
     public void saveAndEnable(View view) {
