@@ -9,14 +9,14 @@ import com.bitquartet.tgscheduler.utils.ConnectionManager;
 
 public class DisableConnectionReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "DisableConnectionReceiver";
+  private static final String TAG = "DisableConnectionReceiver";
 
-    public DisableConnectionReceiver() {
-    }
+  public DisableConnectionReceiver() {
+  }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Log.d("I'm called", TAG);
-        ConnectionManager.setConnection(context, false);
-    }
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Log.d("I'm called", TAG);
+    ConnectionManager.setConnection(context, false);
+  }
 }

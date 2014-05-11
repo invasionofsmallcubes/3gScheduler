@@ -42,7 +42,8 @@ task addTest {
                 def path = 'file://$MODULE_DIR$/' + "${it}"
                 def set = node.find { it.@url == path }
                 if (set == null) {
-                    new Node(node, 'sourceFolder', ['url': 'file://$MODULE_DIR$/' + "${it}", 'isTestSource': "true"])
+                    new Node(node, 'sourceFolder',
+                             ['url': 'file://$MODULE_DIR$/' + "${it}", 'isTestSource': "true"])
                     def writer = new StringWriter()
                     new XmlNodePrinter(new PrintWriter(writer)).print(parsedXml)
                     file.text = writer.toString()

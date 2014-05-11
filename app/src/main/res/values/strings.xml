@@ -2,9 +2,12 @@
 <resources>
 
     <string name="app_name">3gScheduler</string>
-    <string name="hello_world">Choose how many times you want to enable your connection in an hour</string>
+    <string name="hello_world">Choose how many times you want to enable your connection in an hour
+    </string>
     <string name="action_settings">Settings</string>
-    <string name="connectionEnabled">Choose for how many minutes you want your connection to be enabled</string>
+    <string name="connectionEnabled">Choose for how many minutes you want your connection to be
+        enabled
+    </string>
     <string name="enableText">Enable</string>
     <string name="buttonDisable">Disable</string>
     <string name="informationSaved">Information Saved</string>

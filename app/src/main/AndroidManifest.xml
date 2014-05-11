@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bitquartet.tgscheduler.app" >
+          package="com.bitquartet.tgscheduler.app">
 
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".NSApplication">
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:name=".NSApplication">
         <activity
-            android:name="com.bitquartet.tgscheduler.app.MainActivity"
-            android:label="@string/app_name" >
+                android:name="com.bitquartet.tgscheduler.app.MainActivity"
+                android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <receiver
-            android:name="com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver"
-            android:enabled="true"
-            android:exported="true" >
+                android:name="com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
-                <action android:name="com.bitquartet.tgscheduler.ENABLE" />
+                <action android:name="com.bitquartet.tgscheduler.ENABLE"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.bitquartet.tgscheduler.receiver.DisableConnectionReceiver"
-            android:enabled="true"
-            android:exported="true" >
+                android:name="com.bitquartet.tgscheduler.receiver.DisableConnectionReceiver"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
-                <action android:name="com.bitquartet.tgscheduler.DISABLE" />
+                <action android:name="com.bitquartet.tgscheduler.DISABLE"/>
             </intent-filter>
         </receiver>
     </application>
 
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
 </manifest>
