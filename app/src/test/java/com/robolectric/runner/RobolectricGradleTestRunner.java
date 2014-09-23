@@ -26,11 +26,6 @@ public class RobolectricGradleTestRunner extends RobolectricTestRunner {
   }
 
   public static class MyTestLifecycle extends DefaultTestLifecycle {
-
-    @Override
-    public Application createApplication(final Method method, final AndroidManifest appManifest) {
-      return new TestNSApplication();
-    }
   }
 
   @Override
