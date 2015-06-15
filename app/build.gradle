@@ -1,25 +1,25 @@
 apply plugin: 'com.android.application'
-apply plugin: 'robolectric'
+apply plugin: 'org.robolectric'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     dependencies {
-        androidTestCompile 'org.robolectric:robolectric:2.4-SNAPSHOT'
-        androidTestCompile 'org.mockito:mockito-all:1.9.5'
-        androidTestCompile 'junit:junit:4.11'
+        testCompile 'org.robolectric:robolectric:2.4'
+        testCompile 'org.mockito:mockito-all:1.10.19'
+        testCompile 'junit:junit:4.12'
     }
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 20
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -27,39 +27,33 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:20.0.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
 }
 
-task addTest {
-    def src = ['src/test/java']
-    def file = file("app.iml")
+android.testOptions.unitTests.all {
+    // Configure includes / excludes
+    include '**/*Test.class'
+    exclude '**/espresso/**/*.class'
 
-    doLast {
-        try {
-            def parsedXml = (new XmlParser()).parse(file)
-            def node = parsedXml.component[1].content[0]
-            src.each {
-                def path = 'file://$MODULE_DIR$/' + "${it}"
-                def set = node.find { it.@url == path }
-                if (set == null) {
-                    new Node(node, 'sourceFolder',
-                             ['url': 'file://$MODULE_DIR$/' + "${it}", 'isTestSource': "true"])
-                    def writer = new StringWriter()
-                    new XmlNodePrinter(new PrintWriter(writer)).print(parsedXml)
-                    file.text = writer.toString()
-                }
-            }
-        } catch (FileNotFoundException e) {
-            // nop, iml not found
-        }
+    // Configure max heap size of the test JVM
+    maxHeapSize = '2048m'
+
+    // Specify max number of processes (default is 1)
+    maxParallelForks = 4
+
+    // Specify max number of test classes to execute in a test process
+    // before restarting the process (default is unlimited)
+    forkEvery = 150
+
+    // configure whether failing tests should fail the build
+    ignoreFailures true
+
+    // use afterTest to listen to the test execution results
+    afterTest { descriptor, result ->
+        println "Executing test for ${descriptor.name} with result: ${result.resultType}"
     }
 }
 
-gradle.projectsEvaluated {
-    preBuild.dependsOn(addTest)
-}
-
-tasks.withType(Test) {
-    scanForTestClasses = false
-    include "**/*Test.class"
+tasks.withType(Test).whenTaskAdded {
+    project.android.defaultConfig.applicationId 'com.bitquartet.tgscheduler.app'
 }

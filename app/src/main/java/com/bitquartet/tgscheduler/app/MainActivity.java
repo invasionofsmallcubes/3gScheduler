@@ -1,5 +1,6 @@
 package com.bitquartet.tgscheduler.app;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.bitquartet.tgscheduler.receiver.EnableConnectionReceiver;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
   private static final String TAG = "AlarmReceiver";
   public static final String
@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
     SharedPreferences.Editor editor = mSettings.edit();
     editor.putInt(REPEAT, repeat);
     editor.putInt(MINUTES, minutes);
-    editor.commit();
+    editor.apply();
 
     Intent intent = new Intent(getApplicationContext(), EnableConnectionReceiver.class);
     intent.setAction(COM_BITQUARTET_TGSCHEDULER_ENABLE);
@@ -102,10 +102,6 @@ public class MainActivity extends ActionBarActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    if (id == R.id.action_settings) {
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
+    return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
   }
 }

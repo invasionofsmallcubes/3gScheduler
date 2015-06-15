@@ -1,8 +1,5 @@
 package com.robolectric.runner;
 
-import android.app.Application;
-
-import com.bitquartet.tgscheduler.app.TestNSApplication;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.AndroidManifest;
@@ -10,9 +7,9 @@ import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.TestLifecycle;
 import org.robolectric.annotation.Config;
-import org.robolectric.res.Fs;
 
-import java.lang.reflect.Method;
+import java.io.File;
+import java.util.Properties;
 
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {
 
@@ -30,14 +27,23 @@ public class RobolectricGradleTestRunner extends RobolectricTestRunner {
 
   @Override
   protected AndroidManifest getAppManifest(Config config) {
-    String myAppPath = RobolectricGradleTestRunner.class.getProtectionDomain()
-        .getCodeSource()
-        .getLocation()
-        .getPath();
-    String manifestPath = myAppPath + "../../../src/main/AndroidManifest.xml";
-    String resPath = myAppPath + "../../../src/main/res";
-    String assetPath = myAppPath + "../../../src/main/assets";
-    return createAppManifest(Fs.fileFromPath(manifestPath), Fs.fileFromPath(resPath),
-                             Fs.fileFromPath(assetPath));
+    String path = "src/main/AndroidManifest.xml";
+
+    // android studio has a different execution root for tests than pure gradle
+    // so we avoid here manual effort to get them running inside android studio
+    if (!new File(path).exists()) {
+      path = "app/" + path;
+    }
+
+    config = overwriteConfig(config, "manifest", path);
+    return super.getAppManifest(config);
+  }
+
+  protected Config.Implementation overwriteConfig(
+          Config config, String key, String value) {
+    Properties properties = new Properties();
+    properties.setProperty(key, value);
+    return new Config.Implementation(config,
+            Config.Implementation.fromProperties(properties));
   }
 }
