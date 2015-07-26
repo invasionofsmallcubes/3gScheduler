@@ -75,7 +75,7 @@ public class MainActivityTest {
     assertThat(sharedPreferences.getInt(MainActivity.MINUTES, 0), is(1));
   }
 
-  @Test@Ignore
+  @Test
   public void iCanDisableASchedule() {
 
     timings.setSelection(1);
