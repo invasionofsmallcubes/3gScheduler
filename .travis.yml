@@ -6,3 +6,5 @@ android:
     - extra-android-m2repository
   licenses:
     - android-sdk-license-.+
+after_success:
+ - coveralls
