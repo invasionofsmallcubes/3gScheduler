@@ -6,7 +6,8 @@ android {
     buildToolsVersion "22.0.1"
 
     dependencies {
-        testCompile 'org.robolectric:robolectric:2.4'
+        testCompile 'org.robolectric:robolectric:3.0'
+        testCompile 'org.robolectric:shadows-support-v4:3.0'
         testCompile 'org.mockito:mockito-all:1.10.19'
         testCompile 'junit:junit:4.12'
     }

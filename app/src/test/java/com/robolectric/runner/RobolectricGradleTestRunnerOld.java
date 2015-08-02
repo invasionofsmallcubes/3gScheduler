@@ -2,18 +2,18 @@ package com.robolectric.runner;
 
 
 import org.junit.runners.model.InitializationError;
-import org.robolectric.AndroidManifest;
 import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.TestLifecycle;
 import org.robolectric.annotation.Config;
+import org.robolectric.manifest.AndroidManifest;
 
 import java.io.File;
 import java.util.Properties;
 
-public class RobolectricGradleTestRunner extends RobolectricTestRunner {
+public class RobolectricGradleTestRunnerOld extends RobolectricTestRunner {
 
-  public RobolectricGradleTestRunner(Class<?> testClass) throws InitializationError {
+  public RobolectricGradleTestRunnerOld(Class<?> testClass) throws InitializationError {
     super(testClass);
   }
 

@@ -8,14 +8,11 @@ import android.os.SystemClock;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.robolectric.runner.RobolectricGradleTestRunner;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,8 +20,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.robolectric.RuntimeEnvironment.application;
 
-@Config(emulateSdk = 18)
+@Config(sdk = 21, constants = BuildConfig.class)
 @RunWith(RobolectricGradleTestRunner.class)
 public class MainActivityTest {
 
@@ -37,7 +35,7 @@ public class MainActivityTest {
 
   @Before
   public void setup() {
-    TestNSApplication testNSApplication = (TestNSApplication) Robolectric.application;
+    TestNSApplication testNSApplication = (TestNSApplication) application;
     mockAlarmManager = testNSApplication.getAlarmManager();
     mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
     timings = (Spinner) mainActivity.findViewById(R.id.timingsSpinner);
@@ -62,15 +60,15 @@ public class MainActivityTest {
     saveAndEnable.performClick();
 
     verify(mockAlarmManager).setRepeating(eq(AlarmManager.ELAPSED_REALTIME_WAKEUP),
-                                          eq(SystemClock.elapsedRealtime()
-                                             + MainActivity.TWO_MINUTES),
-                                          eq((1 + 1) * AlarmManager.INTERVAL_FIFTEEN_MINUTES),
-                                          any(PendingIntent.class)
+            eq(SystemClock.elapsedRealtime()
+                    + MainActivity.TWO_MINUTES),
+            eq((1 + 1) * AlarmManager.INTERVAL_FIFTEEN_MINUTES),
+            any(PendingIntent.class)
     );
 
     SharedPreferences
         sharedPreferences =
-        Robolectric.application.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+            application.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
     assertThat(sharedPreferences.getInt(MainActivity.REPEAT, 0), is(1));
     assertThat(sharedPreferences.getInt(MainActivity.MINUTES, 0), is(1));
   }
