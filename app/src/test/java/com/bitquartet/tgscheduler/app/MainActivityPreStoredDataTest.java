@@ -5,18 +5,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Spinner;
 
-import com.robolectric.runner.RobolectricGradleTestRunner;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.robolectric.RuntimeEnvironment.application;
 
-@Config(emulateSdk = 18)
+@Config(sdk = 21, constants = BuildConfig.class)
 @RunWith(RobolectricGradleTestRunner.class)
 public class MainActivityPreStoredDataTest {
 
@@ -24,7 +23,7 @@ public class MainActivityPreStoredDataTest {
   public void iCanPopulateData() throws Exception {
     SharedPreferences
         sharedPreferences =
-        Robolectric.application.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+            application.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
     sharedPreferences.edit().putInt(MainActivity.REPEAT, 0).apply();
     sharedPreferences.edit().putInt(MainActivity.MINUTES, 0).apply();
     MainActivity mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
