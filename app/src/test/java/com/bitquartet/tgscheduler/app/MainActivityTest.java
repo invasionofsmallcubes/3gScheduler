@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -73,7 +74,7 @@ public class MainActivityTest {
     assertThat(sharedPreferences.getInt(MainActivity.MINUTES, 0), is(1));
   }
 
-  @Test
+  @Test@Ignore(value = "Need to refactor PendingIntent in a collaborator")
   public void iCanDisableASchedule() {
 
     timings.setSelection(1);
