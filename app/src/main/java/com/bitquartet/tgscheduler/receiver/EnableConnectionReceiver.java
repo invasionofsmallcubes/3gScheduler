@@ -16,9 +16,6 @@ public class EnableConnectionReceiver extends BroadcastReceiver {
   private static int ONE_SHOT_ID = 111111;
   private static int FIVE_MINUTES = 5 * 60 * 1000;
 
-  public EnableConnectionReceiver() {
-  }
-
   @Override
   public void onReceive(Context context, Intent intent) {
     Log.d("I'm called", TAG);

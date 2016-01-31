@@ -11,9 +11,6 @@ public class DisableConnectionReceiver extends BroadcastReceiver {
 
   private static final String TAG = "DisableConnectionReceiver";
 
-  public DisableConnectionReceiver() {
-  }
-
   @Override
   public void onReceive(Context context, Intent intent) {
     Log.d("I'm called", TAG);
