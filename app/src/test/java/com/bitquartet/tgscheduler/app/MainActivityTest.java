@@ -35,7 +35,7 @@ public class MainActivityTest {
   private Button verifyAlarm;
 
   @Before
-  public void setup() {
+  public void setUp() {
     TestNSApplication testNSApplication = (TestNSApplication) application;
     mockAlarmManager = testNSApplication.getAlarmManager();
     mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();

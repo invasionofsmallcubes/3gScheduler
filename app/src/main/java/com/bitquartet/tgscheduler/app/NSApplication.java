@@ -4,8 +4,6 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.content.Context;
 
-import com.bitquartet.tgscheduler.utils.ConnectionManager;
-
 public class NSApplication extends Application {
 
   public Context getContext() {

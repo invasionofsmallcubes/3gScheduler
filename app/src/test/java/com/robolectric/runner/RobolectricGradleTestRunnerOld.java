@@ -29,14 +29,11 @@ public class RobolectricGradleTestRunnerOld extends RobolectricTestRunner {
   protected AndroidManifest getAppManifest(Config config) {
     String path = "src/main/AndroidManifest.xml";
 
-    // android studio has a different execution root for tests than pure gradle
-    // so we avoid here manual effort to get them running inside android studio
     if (!new File(path).exists()) {
       path = "app/" + path;
     }
 
-    config = overwriteConfig(config, "manifest", path);
-    return super.getAppManifest(config);
+    return super.getAppManifest(overwriteConfig(config, "manifest", path));
   }
 
   protected Config.Implementation overwriteConfig(
