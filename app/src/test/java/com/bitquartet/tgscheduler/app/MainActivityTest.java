@@ -29,16 +29,15 @@ public class MainActivityTest {
 
   private Spinner timings;
   private Spinner duration;
-  private MainActivity mainActivity;
   private AlarmManager mockAlarmManager;
   private Button saveAndEnable;
   private Button verifyAlarm;
 
   @Before
-  public void setup() {
+  public void setUp() {
     TestNSApplication testNSApplication = (TestNSApplication) application;
     mockAlarmManager = testNSApplication.getAlarmManager();
-    mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
+    MainActivity mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
     timings = (Spinner) mainActivity.findViewById(R.id.timingsSpinner);
     duration = (Spinner) mainActivity.findViewById(R.id.durationSpinner);
     saveAndEnable = (Button) mainActivity.findViewById(R.id.saveAndEnable);

@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.robolectric'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     compileSdkVersion 23
@@ -35,3 +37,31 @@ tasks.withType(Test).whenTaskAdded {
     project.android.defaultConfig.applicationId 'com.bitquartet.tgscheduler.app'
 }
 
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+//    reportsDir = file("$buildDir/reports/jacoco/")
+}
+
+
+def coverageSourceDirs = [
+        'src/main/java',
+        'src/gen'
+]
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebug") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        xml.destination "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+
+    // Class R is used, but usage will not be covered, so ignore this class from report
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/debug',
+            excludes: ['**/R.class',
+                       '**/R$*.class'
+            ])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files('build/jacoco/testDebug.exec')
+}

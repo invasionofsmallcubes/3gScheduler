@@ -7,4 +7,4 @@ android:
   licenses:
     - android-sdk-license-.+
 after_success:
- - ./gradlew cobertura coveralls
+ - ./gradlew clean app:jacocoTestReport app:coveralls
