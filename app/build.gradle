@@ -34,3 +34,4 @@ dependencies {
 tasks.withType(Test).whenTaskAdded {
     project.android.defaultConfig.applicationId 'com.bitquartet.tgscheduler.app'
 }
+
