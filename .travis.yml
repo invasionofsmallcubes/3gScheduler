@@ -7,4 +7,4 @@ android:
   licenses:
     - android-sdk-license-.+
 after_success:
- - coveralls
+ - ./gradlew cobertura coveralls
