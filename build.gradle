@@ -7,15 +7,9 @@ buildscript {
     }
     dependencies {
         classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
+        classpath 'net.saliman:gradle-cobertura-plugin:2.3.0'
     }
 }
-
-plugins {
-    id "net.saliman.cobertura" version "2.3.0"
-    id "com.github.kt3k.coveralls" version "2.6.3"
-}
-
-cobertura.coverageFormats = ['html', 'xml']
 
 allprojects {
     repositories {
