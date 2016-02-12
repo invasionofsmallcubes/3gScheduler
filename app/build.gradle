@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'org.robolectric'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
@@ -12,6 +11,10 @@ android {
         testCompile 'org.robolectric:shadows-support-v4:3.0'
         testCompile 'org.mockito:mockito-all:1.10.19'
         testCompile 'junit:junit:4.12'
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     defaultConfig {
