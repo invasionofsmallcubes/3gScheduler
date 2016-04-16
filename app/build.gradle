@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
@@ -33,7 +34,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1-2'
 }
 
 tasks.withType(Test).whenTaskAdded {
