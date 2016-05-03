@@ -1,4 +1,7 @@
 language: android
+sudo: required
+dist: trusty
+jdk: oraclejdk8
 android:
   components:
     - build-tools-22.0.1
